@@ -425,53 +425,50 @@ public class EjemplosConsola {
        int y = 0;
        int resultado = 0;
        
-//      char compilador[] = new char[calculadora.length];
-       
+       int[] pila = new int[10];
+
        for(int i = 0; i<calculadora.length;i++){
            
            
           if(calculadora[i] == "+"){
-              if(i>2){
-                  resultado = resultado + x;
-              }else{
-              resultado = x + y;
-              }
-          }else{
+              
+              pila[y-2] = pila[y-1] + pila[y-2];
+              y=y-1;
+              pila[y]=0;
+              continue;
+          }
           if(calculadora[i] == "-"){
-              if(i>2){
-                  resultado = resultado - x;
-              }else{
-              resultado = y - x;
-              }
-          }else{
+              
+              pila[y-2] = pila[y-1] - pila[y-2];
+              y=y-1;
+              pila[y]=0;
+              continue;
+          }
           if(calculadora[i] == "*"){
-              if(i>2){
-                  resultado = resultado * x;
-              }else{
-              resultado = x * y;
-              }
-          }else{
-          
+              
+             pila[y-2] = pila[y-1] * pila[y-2];
+             y=y-1;
+             pila[y]=0;
+             continue;
+          }
           if(calculadora[i] == "/"){
-              if(i>2){
-                  resultado = resultado / x;
-              }else{
-              resultado =  y / x;
-              }
-          }else{
-           y = x;
-           
+              
+             pila[y-2] = pila[y-1] / pila[y-2];
+             y=y-1;
+             pila[y]=0;
+             continue;
+          }
+
            x = Integer.parseInt(calculadora[i]);
-           
-           
+           pila[y]=x;
+           y++;       
        }
-          }
-          }
-          }
+       for(int j=0;j<pila.length;j++){
+           System.out.print(pila[j]+ ", ");
        }
-       
-       return resultado;
-       
+
+       return pila[y-1];
+   
            
        
    }
@@ -621,26 +618,29 @@ public class EjemplosConsola {
 
                     //RPN
                 
-                String[] lista1 = {"1","2","+","3","*","8","/"};  // deberia dar 1   
+                String[] lista1 = {"1","2","+","3","*","8","*"};    
                 System.out.println(ejercicios.rpn(lista1));
                 
-                String[] lista2 = {"6","2","+","2","/","6","+","8"};   // deberia dar 10 y sobrar el 8
+                String[] lista2 = {"6","2","+","2","/","1","+","8"};   
                 System.out.println(ejercicios.rpn(lista2));
                 
-                String[] lista3 = {"5","2","-","3","/","8","+"}; //deberia dar 9    
+                String[] lista3 = {"3","2","+","7","*","15","21","+","-"};    
                 System.out.println(ejercicios.rpn(lista3));
                 
-                String[] lista4 = {"18","2","+","3","*","6","/","45","-"}; // deberia dar -35     
+                String[] lista4 = {"18","2","+","3","*","600","/","45"};     
                 System.out.println(ejercicios.rpn(lista4));
                 
-                String[] lista5 = {"1","2","+","3","*","20","+"}; //deberia dar 29 y sobrar 20 y 30     
+                String[] lista5 = {"1","2","+","3","*","20","+"};     
                 System.out.println(ejercicios.rpn(lista5));
                 
-                String[] lista6 = {"5","8","-","10","*","40","+"}; //deberia dar 10     
+                String[] lista6 = {"5","8","-","1","-"};     
                 System.out.println(ejercicios.rpn(lista6));
                 
-                String[] lista7 = {"2","3","+","5","50","+"};      // deberia dar 55 ignora el 5
+                String[] lista7 = {"10","15","17","+","45"};      
                 System.out.println(ejercicios.rpn(lista7));
+                
+                String[] lista8 = {"10","50","32","14","78","12","+","*","/","-"};      
+                System.out.println(ejercicios.rpn(lista8));
 
     }
     
