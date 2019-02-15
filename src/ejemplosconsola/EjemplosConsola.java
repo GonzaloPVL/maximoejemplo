@@ -472,6 +472,54 @@ public class EjemplosConsola {
            
        
    }
+   
+   
+   private boolean[][] aplicaKern(boolean[][]letra1, boolean[][] letra2, int kern){
+       
+       boolean[][] kerning = new boolean[letra1.length + letra2.length][letra1[0].length + letra2[0].length];
+       
+       kern+=1;
+       
+       
+       //Vamos a copiar la primera letr en nuestro nuevo array[][]
+       for(int i=0; i<letra1.length; i++){
+           for(int j=0; j<letra1[0].length; j++){
+               kerning[i][j] = letra1[i][j];
+           }
+       }
+       
+       //Copiaremos la segunda letra en nuestro array[][]
+       for(int m=0; m<letra2.length; m++){
+           for(int n=0; n<letra2[0].length; n++){
+               
+               if(kerning[m][n+letra1.length-kern]==true && letra2[m][n] == true ){
+                   System.out.println("¡¡¡¡¡DEMASIADO KERN!!!!!!!"); // mensaje de alerta que nos avisa que las letras estan en contacto
+               }
+                   
+               if(kerning[m][n+letra1.length-kern]==false){ // SOLO imprimira nustra nueva letra si la anterior esta en false
+               kerning[m][n+letra1.length-kern] = letra2[m][n];
+               }
+               
+           }
+       }
+       
+       //Imprimimos la pareja de letras.
+       for(int x=0; x<kerning.length; x++){
+           for(int y=0; y<kerning[0].length; y++){
+ 
+               if(kerning[x][y] == false){
+                   System.out.print("     ");
+               }else{
+               System.out.print(kerning[x][y]);
+               System.out.print(" ");
+               }
+           }
+           System.out.println();
+       }
+       
+       return letra1;
+   }
+   
     
             
     public static void main(String[] args) {
@@ -618,30 +666,66 @@ public class EjemplosConsola {
 
                     //RPN
                 
-                String[] lista1 = {"1","2","+","3","*","8","*"};    
-                System.out.println(ejercicios.rpn(lista1));
-                
-                String[] lista2 = {"6","2","+","2","/","1","+","8"};   
-                System.out.println(ejercicios.rpn(lista2));
-                
-                String[] lista3 = {"3","2","+","7","*","15","21","+","-"};    
-                System.out.println(ejercicios.rpn(lista3));
-                
-                String[] lista4 = {"18","2","+","3","*","600","/","45"};     
-                System.out.println(ejercicios.rpn(lista4));
-                
-                String[] lista5 = {"1","2","+","3","*","20","+"};     
-                System.out.println(ejercicios.rpn(lista5));
-                
-                String[] lista6 = {"5","8","-","1","-"};     
-                System.out.println(ejercicios.rpn(lista6));
-                
-                String[] lista7 = {"10","15","17","+","45"};      
-                System.out.println(ejercicios.rpn(lista7));
-                
-                String[] lista8 = {"10","50","32","14","78","12","+","*","/","-"};      
-                System.out.println(ejercicios.rpn(lista8));
+//                String[] lista1 = {"1","2","+","3","*","8","*"};    
+//                System.out.println(ejercicios.rpn(lista1));
+//                
+//                String[] lista2 = {"6","2","+","2","/","1","+","8","+"};   
+//                System.out.println(ejercicios.rpn(lista2));
+//                
+//                String[] lista3 = {"3","2","+","7","*","15","21","+","-"};    
+//                System.out.println(ejercicios.rpn(lista3));
+//                
+//                String[] lista4 = {"18","2","+","3","*","600","/","45"};     
+//                System.out.println(ejercicios.rpn(lista4));
+//                
+//                String[] lista5 = {"1","2","+","3","*","20","+"};     
+//                System.out.println(ejercicios.rpn(lista5));
+//                
+//                String[] lista6 = {"5","8","-","1","-"};     
+//                System.out.println(ejercicios.rpn(lista6));
+//                
+//                String[] lista7 = {"10","15","17","+","45"};      
+//                System.out.println(ejercicios.rpn(lista7));
+//                
+//                String[] lista8 = {"10","50","32","14","78","12","+","*","/","-"};      
+//                System.out.println(ejercicios.rpn(lista8));
 
+                
+                
+                
+                
+                
+                
+                
+                
+                boolean[][]	letraA	=	{
+                    {false, false, false, false, true,  false, false, false, false},
+                    {false, false, false, false, true,  false, false, false, false},
+                    {false, false, false, true,  false, true,  false, false, false},
+                    {false, false, false, true,  false, true,  false, false, false},
+                    {false, false, true,  false, false, false, true,  false, false},
+                    {false, false, true,  false, false, false, true,  false, false},
+                    {false, true,  true,  true,  true,  true,  true,  true,  false},
+                    {false, true,  false, false, false, false, false, true,  false},
+                    {false, true,  false, false, false, false, false, true,  false},
+                    {true,  true,  true,  false, false, false, true,  true,  true},
+                    };
+                
+                 boolean[][]	letraV	=	{
+                    {true,  true,  true,  false, false, false, true,  true,  true},
+                    {false, true,  false, false, false, false, false, true,  false},
+                    {false, true,  false, false, false, false, false, true,  false},
+                    {false, true,  false, false, false, false, false, true,  false},
+                    {false, false, true,  false, false, false, true,  false, false},
+                    {false, false, true,  false, false, false, true,  false, false},
+                    {false, false, false, true,  false, true,  false, false, false},
+                    {false, false, false, true,  false, true,  false, false, false},
+                    {false, false, false, false, true,  false, false, false, false},
+                    {false, false, false, false, true,  false, false, false, false},
+                    };
+                
+                System.out.print(ejercicios.aplicaKern(letraV, letraA, 2));
+//                
     }
     
 }
