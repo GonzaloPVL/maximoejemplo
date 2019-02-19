@@ -520,6 +520,64 @@ public class EjemplosConsola {
        return letra1;
    }
    
+   public boolean chequeaAtaque(int[][] piezas, int ataque){
+       
+      
+       int valorA = piezas[ataque][1];
+       
+       boolean muerte = false;
+          //Estos for anidados nos situarán las piezas en el tablero
+          //Recorren el array de piezas situando los true.
+            for(int i=0; i<piezas.length; i++){   
+               
+                if(piezas[i][6] == piezas[ataque][6]){//Este filtro depende del tipo de ataque (A/T)
+                    
+                    
+                    //Cada if busca si existe una pieza en las posiciones donde afecta el ataque.
+                   if(piezas[i][2] == piezas[ataque][2] && piezas[i][3] == piezas[ataque][3]){
+                       piezas[i][1] = piezas[i][1] - piezas[ataque][1]*4; 
+                       piezas[ataque][1]= valorA;
+                   }
+                   if((piezas[i][2] == (piezas[ataque][2]-1) && piezas[i][3] == piezas[ataque][3])
+                       ||(piezas[i][2] == (piezas[ataque][2]+1) && piezas[i][3] == piezas[ataque][3])
+                       ||(piezas[i][2] == piezas[ataque][2] && piezas[i][3] == (piezas[ataque][3]-1))
+                       ||(piezas[i][2] == piezas[ataque][2] && piezas[i][3] == (piezas[ataque][3]+1))){
+                       
+                              piezas[i][1] = piezas[i][1] - piezas[ataque][1]*2;
+                   }
+                   if((piezas[i][2] == (piezas[ataque][2]-1) && piezas[i][3] == (piezas[ataque][3]-1))
+                       ||(piezas[i][2] == (piezas[ataque][2]-1) && piezas[i][3] == (piezas[ataque][3]+1))
+                       ||(piezas[i][2] == (piezas[ataque][2]+1) && piezas[i][3] == (piezas[ataque][3]-1))
+                       ||(piezas[i][2] == (piezas[ataque][2]+1) && piezas[i][3] == (piezas[ataque][3]+1))){
+                       
+                               piezas[i][1] = piezas[i][1] - piezas[ataque][1];
+                   }
+                }
+                   
+                   if(piezas[i][1]<=0){ // Si en aguna pieza la vida es menor o igual a cero significa que ha muerto
+                       muerte = true;
+                   }
+                    
+                   
+            }
+            
+            
+            
+
+            for(int i=0; i<piezas.length; i++){  //imprimimos la lista de piezas actualizada
+                
+               for(int j=0; j<piezas[0].length; j++){
+                   
+                   System.out.print(piezas[i][j] + ", ");
+                   
+               }
+               System.out.println();
+            }
+            
+           
+       return muerte;
+   }
+   
     
             
     public static void main(String[] args) {
@@ -697,35 +755,47 @@ public class EjemplosConsola {
                 
                 
                 
-                
-                boolean[][]	letraA	=	{
-                    {false, false, false, false, true,  false, false, false, false},
-                    {false, false, false, false, true,  false, false, false, false},
-                    {false, false, false, true,  false, true,  false, false, false},
-                    {false, false, false, true,  false, true,  false, false, false},
-                    {false, false, true,  false, false, false, true,  false, false},
-                    {false, false, true,  false, false, false, true,  false, false},
-                    {false, true,  true,  true,  true,  true,  true,  true,  false},
-                    {false, true,  false, false, false, false, false, true,  false},
-                    {false, true,  false, false, false, false, false, true,  false},
-                    {true,  true,  true,  false, false, false, true,  true,  true},
-                    };
-                
-                 boolean[][]	letraV	=	{
-                    {true,  true,  true,  false, false, false, true,  true,  true},
-                    {false, true,  false, false, false, false, false, true,  false},
-                    {false, true,  false, false, false, false, false, true,  false},
-                    {false, true,  false, false, false, false, false, true,  false},
-                    {false, false, true,  false, false, false, true,  false, false},
-                    {false, false, true,  false, false, false, true,  false, false},
-                    {false, false, false, true,  false, true,  false, false, false},
-                    {false, false, false, true,  false, true,  false, false, false},
-                    {false, false, false, false, true,  false, false, false, false},
-                    {false, false, false, false, true,  false, false, false, false},
-                    };
-                
-                System.out.print(ejercicios.aplicaKern(letraV, letraA, 2));
 //                
+//                boolean[][]	letraA	=	{
+//                    {false, false, false, false, true,  false, false, false, false},
+//                    {false, false, false, false, true,  false, false, false, false},
+//                    {false, false, false, true,  false, true,  false, false, false},
+//                    {false, false, false, true,  false, true,  false, false, false},
+//                    {false, false, true,  false, false, false, true,  false, false},
+//                    {false, false, true,  false, false, false, true,  false, false},
+//                    {false, true,  true,  true,  true,  true,  true,  true,  false},
+//                    {false, true,  false, false, false, false, false, true,  false},
+//                    {false, true,  false, false, false, false, false, true,  false},
+//                    {true,  true,  true,  false, false, false, true,  true,  true},
+//                    };
+//                
+//                 boolean[][]	letraV	=	{
+//                    {true,  true,  true,  false, false, false, true,  true,  true},
+//                    {false, true,  false, false, false, false, false, true,  false},
+//                    {false, true,  false, false, false, false, false, true,  false},
+//                    {false, true,  false, false, false, false, false, true,  false},
+//                    {false, false, true,  false, false, false, true,  false, false},
+//                    {false, false, true,  false, false, false, true,  false, false},
+//                    {false, false, false, true,  false, true,  false, false, false},
+//                    {false, false, false, true,  false, true,  false, false, false},
+//                    {false, false, false, false, true,  false, false, false, false},
+//                    {false, false, false, false, true,  false, false, false, false},
+//                    };
+//                
+//                System.out.print(ejercicios.aplicaKern(letraV, letraA, 3));
+//              
+//                
+                //CLASH ROYALE
+                
+                int[][] listaPiezas = {
+                    {2,211,8,12,1,1,0},
+                    {67,950,1,11,1,1,1},
+                    {87,150,5,7,0,0,0},
+                    {40,500,6,7,0,0,1},
+                    {257,100,5,7,0,0,0}, //Este es el ataque
+                    
+                };
+                System.out.print(ejercicios.chequeaAtaque(listaPiezas, 4));
     }
     
 }
